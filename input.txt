@@ -1,0 +1,20 @@
+#You have to follow the following format!space after ":"
+
+template_file:
+B2.lmp
+
+#element sequence in DLP
+dlp_element:
+Al Co Cr Fe Ni
+
+#subgroup information,element group, numbers
+subgrpNum:
+2
+
+subgrp1:
+Al Cr
+9 18 
+
+subgrp2:
+Fe Co Ni
+9 9 9 
