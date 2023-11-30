@@ -3,6 +3,7 @@ use warnings;
 use POSIX;
 use List::Util qw(shuffle);
 
+my $data_dir = "./"
 my $template = `grep -A 1 template_file: ./input.txt|grep -v template_file:`;
 chomp $template;
 
@@ -79,8 +80,6 @@ for (0..$#coordinates){
 my $coords = join("\n",@coordinates);
 
 my $here_doc =<<"END_MESSAGE";
-# LAMMPS data file written by OVITO Basic 3.7.8
-
 $part1
 
 Atoms  # atomic

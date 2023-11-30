@@ -1,19 +1,18 @@
  # Bcc AlNi alloy oriented X=[100] Y=[010] Z=[001].
  
           54  atoms
-           5  atom types
+           3  atom types # need to modify
  
       0.000000000000      10.572000000000  xlo xhi
       0.000000000000      10.572000000000  ylo yhi
       0.000000000000      10.572000000000  zlo zhi
  
-Masses
+Masses #need to modify
  
-1 26.9815385  # Al
-2 58.933194  # Co
-3 52.0  # Cr
-4 55.845  # Fe
-5 58.6934  # Ni
+1 118.71  # Sn
+2 207.2  # Pb
+3 127.60  # Te
+
  
 Atoms # atomic
  
