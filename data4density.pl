@@ -23,12 +23,12 @@ for (@datafile){
     my $typeNum = `grep "atom types" $_|awk '{print \$1}'`;
     $typeNum =~ s/^\s+|\s+$//g;
     #1   58.93319500             # Co
-    my @ele = `grep -v '^[[:space:]]*\$' $_|grep -A $typeNum Masses|grep -v Masses|grep -v -- '--'|awk '{print \$NF}'`;
+    my @ele = `grep -v '^[[:space:]]*\$' $_|grep -A $typeNum Masses|grep -v Masses|grep -v -- '--'|awk '{print \$4}'`;
     map { s/^\s+|\s+$//g; } @ele;# id + 1 ---> lmp type id
-    die "No element symbols in $_\n" unless(@ele);
+    die "No element symbols in $_\n" unless($ele[0]);
     my @ele_mass = `grep -v '^[[:space:]]*\$' $_|grep -A $typeNum Masses|grep -v Masses|grep -v -- '--'|awk '{print \$2}'`;
     map { s/^\s+|\s+$//g; } @ele_mass;# id + 1 ---> lmp id
-    die "No element masses in $_\n" unless(@ele_mass);
+    die "No element masses in $_\n" unless($ele_mass[0]);
 
     my %element2den;#element symbol to its bulk density 
     for (@ele){#unique
@@ -55,21 +55,42 @@ for (@datafile){
     );     
         &lmp_script(\%lmp_para);
 #
-    `$lmp_exe -in $currentPath/density.in`;
-    #system("$lmp_exe -in $currentPath/density.in");
+    #`$lmp_exe -in $currentPath/density.in`;
+    system("$lmp_exe -in $currentPath/density.in");
     ###
     # modify mass
     my @data = `cat $lmp_para{output_data}`;
     map { s/^\s+|\s+$//g; } @data;# id + 1 ---> lmp id
 
     my $massln;
+    my $velln = 0;
     for my $m (0..$#data){
-        if( $data[$m] =~m/^Masses/){$massln = $m;}
+        if( $data[$m] =~ m/^Masses/){
+            $massln = $m;
+        }
+        #1 3 -0.6028447203362663 -0.6028447203362663 -0.6028447203362663 0 0 0
+        elsif($data[$m] =~ m/(\d+)\s+(\d+)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)\s+\d\s+\d\s+\d$/){
+            chomp ($1,$2,$3,$4,$5);
+            $data[$m] = "$1 $2 $3 $4 $5";
+        }
+        elsif($data[$m] =~ m/Velocities/){
+            $velln = $m;
+        }
     }
+
     for my $i (1..@ele){
         $data[$massln + 1 + $i ] = "$data[$massln + 1 + $i ] \# $ele[$i-1]";
     }
-    my $datafile = join("\n",@data);
+    my @final_data;
+    if($velln){#remove lines below Velocities and with Velocities
+        @final_data = @data[0 .. $velln - 1];
+    }
+    else{
+        @final_data = @data;
+    }
+
+    my $datafile = join("\n",@final_data);
+    chomp $datafile;
     open(FH, '>', "$currentPath/den_mod/$filename") or die $!;
     print FH $datafile;
     close(FH);
@@ -99,12 +120,16 @@ pair_style none
 variable den_in equal density #current density
 variable den_ratio equal \${den_in}/\${den_out}
 variable den_scale equal \${den_ratio}^(1.0/3.0)
-
+print ""
+print ""
+print "**original density:"
 print \$(density)
+print "**box scaling factor:"
 print \${den_scale}
 
 change_box all x scale \${den_scale} y scale \${den_scale} z scale \${den_scale} remap units box
-write_data $lmp_hr->{output_data}
+write_data $lmp_hr->{output_data} 
+print "**Density after scaling the box size:"
 print \$(density)
 
 END_MESSAGE

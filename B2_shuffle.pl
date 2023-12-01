@@ -3,7 +3,7 @@ use warnings;
 use POSIX;
 use List::Util qw(shuffle);
 
-my $data_dir = "./"
+my $data_dir = "./";
 my $template = `grep -A 1 template_file: ./input.txt|grep -v template_file:`;
 chomp $template;
 
