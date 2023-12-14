@@ -11,14 +11,16 @@ my $lmp_exe = "/opt/lammps-mpich-4.0.3/lmpdeepmd_20230322";
 my $currentPath = getcwd();
 `rm -rf $currentPath/den_mod`;#remove old data
 `mkdir -p  $currentPath/den_mod`;
-my $data_dir = "$currentPath";#you may assign yours 
-my @datafile = `find $currentPath -name "*.data"`;#find all data files
+my $data_dir = "$currentPath/ele4ratio";#you may assign yours 
+my @datafile = `find $data_dir -name "*.data"`;#find all data files
 map { s/^\s+|\s+$//g; } @datafile;
 die "No data files\n" unless(@datafile);
 
 for (@datafile){
     my $dir = `dirname $_`;#get path
+     $dir =~ s/^\s+|\s+$//g;
     my $filename =`basename $_`;#get path
+     $filename =~ s/^\s+|\s+$//g;
     #1  atom types 
     my $typeNum = `grep "atom types" $_|awk '{print \$1}'`;
     $typeNum =~ s/^\s+|\s+$//g;
