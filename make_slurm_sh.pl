@@ -16,11 +16,13 @@ use List::Util qw/shuffle/;
 my $filefold = "QEall_set";
 my $submitJobs = "no";
 my %sbatch_para = (
-            nodes => 1,#how many nodes for your lmp job
+            nodes => 2,#how many nodes for your lmp job
+            #nodes => 1,#how many nodes for your lmp job
             threads => 1,,#modify it to 2, 4 if oom problem appears
             #cpus_per_task => 1,
-            partition => "All",#which partition you want to use
-            runPath => "/opt/thermoPW/bin/pw.x -ndiag 1",          
+            partition => "C16M32",#which partition you want to use
+            #partition => "All",#which partition you want to use
+            runPath => "/opt/thermoPW-7-2/bin/pw.x",          
             );
 
 my $currentPath = getcwd();# dir for all scripts
