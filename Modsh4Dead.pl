@@ -9,10 +9,10 @@ die "No Dead.txt in $currentPath/QEjobs_status" unless(@all_files);
 my $submitJobs = "no";
 my %sbatch_para = (
             nodes => 1,#how many nodes for your lmp job
-            threads => 2,#modify it to 2, 4, 6 if oom problem appears
-            cpus_per_task => 1,#useless if use "mpiexec -np"
+            threads => 1,#modify it to 2, 4 if oom problem appears
+            #cpus_per_task => 1,#useless if use "mpiexec -np"
             partition => "All",#which partition you want to use
-            runPath => "/opt/thermoPW/bin/pw.x -ndiag 1",          
+            runPath => "/opt/thermoPW-7-2/bin/pw.x",          
             );
 
 my $jobNo = 1;
@@ -30,16 +30,20 @@ my $here_doc =<<"END_MESSAGE";
 #SBATCH --output=$basename.sout
 #SBATCH --job-name=$basename
 #SBATCH --nodes=$sbatch_para{nodes}
-##SBATCH --cpus-per-task=$sbatch_para{cpus_per_task}
+#SBATCH --cpus-per-task=$sbatch_para{threads}
 #SBATCH --partition=$sbatch_para{partition}
 ##SBATCH --ntasks-per-node=12
 ##SBATCH --exclude=node23
 
 rm -rf pwscf*
+node=$sbatch_para{nodes}
 threads=$sbatch_para{threads}
 processors=\$(nproc)
-np=\$((\$processors/\$threads))
+np=\$((\$node*\$processors/\$threads))
 export OMP_NUM_THREADS=\$threads
+#the following two are for AMD CPU if slurm chooses for you!!
+export MKL_DEBUG_CPU_TYPE=5
+export MKL_CBWR=AUTO
 
 mpiexec -np \$np $sbatch_para{runPath} -in $basename.in
 rm -rf pwscf*
