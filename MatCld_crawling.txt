@@ -1,14 +1,11 @@
 ###Crawling QE input from Materials Cloud for:
 
-1: /home/jsp/make_B2_related_data/data2QE4MatCld/Pb32Te32.in -> 1/12
-2: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn3Pb29Te32.in -> 2/12
-3: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn6Pb26Te32.in -> 3/12
-4: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn9Pb23Te32.in -> 4/12
-5: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn12Pb20Te32.in -> 5/12
-6: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn15Pb17Te32.in -> 6/12
-7: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn18Pb14Te32.in -> 7/12
-8: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn21Pb11Te32.in -> 8/12
-9: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn24Pb8Te32.in -> 9/12
-10: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn27Pb5Te32.in -> 10/12
-11: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn30Pb2Te32.in -> 11/12
-12: /home/jsp/make_B2_related_data/data2QE4MatCld/Sn32Te32.in -> 12/12
+1: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/graphite.in -> 1/9
+2: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/3_3.in -> 2/9
+3: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/5_0.in -> 3/9
+4: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/5_5.in -> 4/9
+5: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/7_0.in -> 5/9
+6: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/7_7.in -> 6/9
+7: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/9_0.in -> 7/9
+8: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/11_0.in -> 8/9
+9: /home/jsp/AlP/make_B2_related_data/data2QE4MatCld/11_11.in -> 9/9
