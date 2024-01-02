@@ -59,11 +59,14 @@ for (@datafile){
 
 my @myelement = keys  %myelement;
 map { s/^\s+|\s+$//g; } @myelement;
+#for (@myelement){
+#    print "$_\n";
+#}
 die "No elements were found\n" unless (@myelement);
 my @temperature = ("10");#temperatures for QE_MD, only template for the following sed trim
 my @pressure = ("0");#pressure for vc-md, only template for the following sed trim
 my $calculation = "vc-md";#set temperature and pressure to be 0 0 for scf
-my $stepsize = 50;#20 ~ 0.97 fs
+my $stepsize = 20;#20 ~ 0.97 fs
 my $nstep = 50;#how many steps for md for vc-relax
 my $pseudo_dir = "/opt/QEpot/SSSP_efficiency_pseudos/";
 ####end of setting parameters
@@ -124,7 +127,7 @@ for my $id (@datafile){
     #filter the types no in Masses to skip this type in QE input
     my $atomNum = `grep "atoms" $id|awk '{print \$1}'`;
     $atomNum =~ s/^\s+|\s+$//g;#could no specific type in coords info
-    my @usedType = `grep -v '^[[:space:]]*\$' $id|grep -A $atomNum Atoms|grep -v Atoms|grep -v -- '--'|awk '{print \$2}'`;#get types
+    my @usedType = `grep -v '^[[:space:]]*\$' $id|grep -v Atomsk|grep -A $atomNum Atoms|grep -v Atoms|grep -v -- '--'|awk '{print \$2}'`;#get types
     map { s/^\s+|\s+$//g; } @usedType;
     die "No type info in $_\n" unless(@usedType);
     my %usedType;
@@ -137,7 +140,6 @@ for my $id (@datafile){
     for my $t (sort keys %usedType){
         push @current_elements,$ele[$t - 1];
     }
-
     #my @current_elements = keys  %current_elements;
     my $species = "";
     my $starting_magnetization = "";
