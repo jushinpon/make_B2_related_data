@@ -191,7 +191,7 @@ for my $id (@datafile){
                 $para{zlo} = $1;
                 $para{zhi} = $2;
             }
-            elsif(/([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)\s+xy\s+xz\s+yz/){
+            elsif(/([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+xy\s+xz\s+yz/){
                 $para{xy} = $1;
                 $para{xz} = $2;
                 $para{yz} = $3;
