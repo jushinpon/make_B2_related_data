@@ -38,9 +38,9 @@ print ", you need to modify heredoc for setting the largest ecutrho and ecutwfc 
 print "\nMaybe you also need to modify cell_dofree setting for your QE cases. \n\n";
 ###parameters to set first
 my $currentPath = getcwd();
-my $dir = "$currentPath/den_mod";
+my $dir = "$currentPath/cif2data";
 #my @myelement =  ("B","N");#corresponding to lmp type ids
-my @datafile = `find $dir -name "*.data"`;#find all data files
+my @datafile = `find $dir -name "*.data"`;#|grep -v "/Te_"`;#find all data files
 map { s/^\s+|\s+$//g; } @datafile;
 die "No data files\n" unless(@datafile);
 #collect all elements in data files
@@ -59,9 +59,6 @@ for (@datafile){
 
 my @myelement = keys  %myelement;
 map { s/^\s+|\s+$//g; } @myelement;
-#for (@myelement){
-#    print "$_\n";
-#}
 die "No elements were found\n" unless (@myelement);
 my @temperature = ("10");#temperatures for QE_MD, only template for the following sed trim
 my @pressure = ("0");#pressure for vc-md, only template for the following sed trim
@@ -140,6 +137,7 @@ for my $id (@datafile){
     for my $t (sort keys %usedType){
         push @current_elements,$ele[$t - 1];
     }
+
     #my @current_elements = keys  %current_elements;
     my $species = "";
     my $starting_magnetization = "";
@@ -158,9 +156,10 @@ for my $id (@datafile){
     my $data_name = `basename $id`;
     $data_name =~ s/\.data//g;
     chomp ($data_path, $data_name);
-        open my $database ,"< $id";      
-        my @data =<$database>;
-        close $database;
+    open my $database ,"< $id";      
+    my @data =<$database>;
+    map { s/^\s+|\s+$//g; } @data;
+    close $database;
         my %para = (
             xy => "0.0",#if no value
             xz => "0.0",
@@ -197,9 +196,12 @@ for my $id (@datafile){
                 $para{xy} = $1;
                 $para{xz} = $2;
                 $para{yz} = $3;
+                #print "$1,$2,$3\n";
+                #die;
             }
 #1 1 4.458517505863 1.201338326940 0.873835074284 without charge
-            elsif(/\d+\s+(\d+)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)$/){
+            elsif(/\d+\s+(\d+)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)$/){
+            #elsif(/\d+\s+(\d+)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)$/){
                 my $ele = $ele[$1-1];
                 my $x = $2 - $para{xlo};
                 my $y = $3 - $para{ylo};
@@ -209,7 +211,7 @@ for my $id (@datafile){
                 push @{$para{coords}},$temp;
             }
 #1 1 1.000000 4.458517505863 1.201338326940 0.873835074284 with charge
-            elsif(/\d+\s+(\d+)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*)$/ && $2 != ""){
+            elsif(/\d+\s+(\d+)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)$/ && $2 != ""){
                 my $ele = $ele[$1-1];
                 my $x = $3 - $para{xlo};
                 my $y = $4 - $para{ylo};
@@ -268,7 +270,7 @@ calculation = "$QE_hr->{calculation}"
 nstep = $QE_hr->{nstep}
 etot_conv_thr = 1.0d-5
 forc_conv_thr = 1.0d-4
-disk_io = '/dev/null'
+disk_io = 'none'
 pseudo_dir = '$QE_hr->{pseudo_dir}'
 tprnfor = .true.
 tstress = .true.

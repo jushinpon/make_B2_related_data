@@ -8,11 +8,11 @@ map { s/^\s+|\s+$//g; } @all_files;
 die "No Dead.txt in $currentPath/QEjobs_status" unless(@all_files);
 my $submitJobs = "no";
 my %sbatch_para = (
-            nodes => 1,#how many nodes for your lmp job
-            threads => 2,#modify it to 2, 4 if oom problem appears
+            nodes => 2,#how many nodes for your lmp job
+            threads => 24,#modify it to 2, 4 if oom problem appears
             #cpus_per_task => 1,#useless if use "mpiexec -np"
-            partition => "All",#which partition you want to use
-            runPath => "/opt/thermoPW-7-2/bin/pw.x",          
+            partition => "C24M32",#which partition you want to use
+            runPath => "/opt/thermoPW-7-2/bin/pw.x -nd 1",          
             );
 
 my $jobNo = 1;

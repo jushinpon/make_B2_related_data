@@ -7,7 +7,7 @@ use lib './';#assign pm dir
 use elements;#all setting package
 
 ###parameters to set first
-my $lmp_exe = "/opt/lammps-mpich-4.0.3/lmpdeepmd_20230322";
+my $lmp_exe = "/opt/lammps-mpich-4.0.3/lmpdeepmd";
 my $currentPath = getcwd();
 `rm -rf $currentPath/den_mod`;#remove old data
 `mkdir -p  $currentPath/den_mod`;
