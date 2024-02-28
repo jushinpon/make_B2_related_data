@@ -17,6 +17,8 @@ die "No folders were found under the source folder, $source_folder\n" unless(@QE
 #print "@QEout_folders\n";
 `rm -rf data4relax`;
 `mkdir data4relax`;
+open(my $FH, "> data4relax/No_data.txt") or die $!;
+print $FH "## The following are cases with No data files to deal with! (none is ok for all)\n\n";
 
 for my $f (@QEout_folders){
     my @data_files = `ls $f/$data_folder/*.data`;
@@ -30,5 +32,9 @@ for my $f (@QEout_folders){
     }
     else{
         print "no data files in $f\n";
+        print $FH "$f\n";
     }   
 }
+close($FH);
+system("cat data4relax/No_data.txt");
+print "\n\n!!!If all folders are listed, maybe you forget to conduct perl /opt/qe_perl/QEout2data.pl in advance.\n";

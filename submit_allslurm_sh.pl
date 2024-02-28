@@ -13,7 +13,8 @@ use POSIX;
 use Parallel::ForkManager;
 use List::Util qw/shuffle/;
 
-my $filefold = "QEall_set";
+my $filefold = "QE_trimmed4relax";
+#my $filefold = "QEall_set";
 
 my $currentPath = getcwd();# dir for all scripts
 

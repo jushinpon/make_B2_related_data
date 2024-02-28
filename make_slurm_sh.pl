@@ -13,7 +13,9 @@ use POSIX;
 use Parallel::ForkManager;
 use List::Util qw/shuffle/;
 
-my $filefold = "QEall_set";
+my $filefold = "QE_trimmed4relax";
+#my $filefold = "QEall_set";
+
 my $submitJobs = "no";
 my %sbatch_para = (
             nodes => 1,#how many nodes for your lmp job
@@ -65,6 +67,8 @@ export MKL_DEBUG_CPU_TYPE=5
 export MKL_CBWR=AUTO
 mpiexec -np \$np $sbatch_para{runPath} -in $basename.in
 rm -rf pwscf*
+perl /opt/qe_perl/QEout_analysis.pl
+perl /opt/qe_perl/QEout2data.pl
 
 END_MESSAGE
     unlink "$dirname/$basename.sh";
