@@ -1,13 +1,33 @@
+=b
+1. cell_dynamics:
+    a. calculation == 'vc-relax': sd, damp-pr, damp-w,bfgs(ion_dynamics must be 'bfgs' too)
+    b. calculation == 'vc-md':pr,w
+2. ion_dynamics:
+    a. vc-relax: bfgs, damp
+    b. vc-md: beeman
+    c. md: verlet,langavin
+    d. relax: bfgs,damp, fire
+=cut
+
+
 use warnings;
 use strict;
 use Cwd;
+
+#vc-relax: for cases with guessing equilibrium structure
+my $cell_dynamics = '"damp-pr"';
+my $ion_dynamics = '"damp"';
+#vc-relax: for cases downloaed from materials project
+#my $cell_dynamics = '"bfgs"';
+#my $ion_dynamics = '"bfgs"';
 
 my $currentPath = getcwd();
 
 my %para =(#you may set QE parameters you want to modify here. Keys should be the same as used in QE
     #calculation => '"vc-md"',
     cell_dofree => '"all"',
-    cell_dynamics => '"pr"',
+    cell_dynamics => $cell_dynamics,#
+    ion_dynamics => $ion_dynamics,#
     #vdw_corr => '"DFT-D3"', #use Van der Waals
     dt => 50,
     nstep => 50,
