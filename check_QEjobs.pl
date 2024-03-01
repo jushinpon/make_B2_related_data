@@ -150,7 +150,7 @@ for my $f (@all_QEin){
         }
         else{
             $deadNu++;
-            print $FH3 "$f not submitted!\n";#for awk
+            print $FH3 "0/0: $f not submitted!\n";#for awk
         }
     }
 
