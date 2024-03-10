@@ -301,7 +301,7 @@ mixing_beta =   0.2
 mixing_mode = 'plain' !'local-TF'
 mixing_ndim = 8 !set 4 or 3 if OOM-killer exists (out of memory)
 diagonalization = 'david' !set cg if if OOM-killer exists (out of memory). other types can be used for scf problem.
-diago_david_ndim = 4 !If david is used for diagonalization. set 2 if OOM-killer appears.
+diago_david_ndim = 2 !If david is used for diagonalization. set 2 if OOM-killer appears.
 /
 &IONS
 ion_dynamics = "beeman"

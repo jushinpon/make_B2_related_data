@@ -35,6 +35,7 @@ my $here_doc =<<"END_MESSAGE";
 ##SBATCH --ntasks-per-node=12
 ##SBATCH --exclude=node23
 
+source /opt/intel/oneapi/setvars.sh
 rm -rf pwscf*
 node=$sbatch_para{nodes}
 threads=$sbatch_para{threads}
