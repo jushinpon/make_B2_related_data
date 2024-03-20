@@ -3,20 +3,20 @@ use strict;
 use Cwd;
 
 my $currentPath = getcwd();
-my $QE_folder = "QE_trimmed";#folder where you place all your QE input files
+my $QE_folder = "QE_trimmed4md";#folder where you place all your QE input files
 my $out_folder = "QEall_set";#folder having all subfolders (the same prefixes as QE input file) with the QE input
 `rm -rf $currentPath/$out_folder`;
 `mkdir $currentPath/$out_folder`;
 ## set Temperature and press 
-my @tempw = (50,600);
+my @tempw = (300);
 my @press = (0);
 my %para =(#you may set QE parameters you want to modify here. Keys should be the same as used in QE
-    #calculation => '"vc-md"',
+    calculation => '"vc-md"',
     cell_dofree => '"all"',
     cell_dynamics => '"pr"',
     #vdw_corr => '"DFT-D3"', #use Van der Waals
-    dt => 20,
-    nstep => 50,
+    dt => 50,
+    nstep => 100,
     etot_conv_thr => "1.0d-5",#perl not know d-5, make it a string 
     forc_conv_thr => "1.0d-4",
     disk_io => '"none"',

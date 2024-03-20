@@ -1,9 +1,12 @@
 use strict;
 use warnings;
+
+die "Don't use this script directly!!! ONly for guide you the whole sequenece of ".
+"all required perl scripts for relax (part 1) and the following md (part 2)!!\n";
 # makedir data4relax and move all your data files into it. Maybe you can use find_data4relax.pl to do it!
-#part 1
+
+#part 1:
 print "1.mkdir data4relax and move all your data files into it.\n";
-#print "You need to modify the element set in mp_get_cif.py for yourown system\n";
 
 #remove all folders
 #system("rm -rf cifs data4relax cif2data data2QE4MatCld QEinByMatCld QE_trimmed");

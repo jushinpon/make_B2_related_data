@@ -15,8 +15,8 @@ my $currentPath = getcwd();
 my @QEin_MC = `find $currentPath/QEinByMatCld -name "*.in"`;
 chomp @QEin_MC;
 
-`rm -rf QE_trimmed`;
-`mkdir QE_trimmed`;
+`rm -rf QE_trimmed4md`;
+`mkdir QE_trimmed4md`;
 #print $DATA1 "###Crawling QE input from Materials Cloud for:\n\n";
 my $total = @QEin_MC;
 my $counter = 0;
@@ -70,7 +70,7 @@ for my $qe (@QEin_MC){
     }
     my $trimmed = join("\n",@QE_template);
     chomp $trimmed;
-    open(FH, ">QE_trimmed/$QEin_name" ) or die $!;
+    open(FH, ">QE_trimmed4md/$QEin_name" ) or die $!;
     print FH $trimmed;
     close(FH);
    # #$QEin_name =~ s/\.in//g;

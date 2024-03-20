@@ -1,7 +1,8 @@
 =b
-make lmp input files for all strucutres in labelled folders.
-You need to use this script in the dir with all dpgen collections (in all_cfgs folder)
-perl ../tool_scripts/cfg2lmpinput.pl 
+Choose only one of the following two:
+
+my $filefold = "QE_trimmed4relax";
+my $filefold = "QEall_set";
 =cut
 use warnings;
 use strict;
@@ -13,8 +14,8 @@ use POSIX;
 use Parallel::ForkManager;
 use List::Util qw/shuffle/;
 
-my $filefold = "QE_trimmed4relax";
-#my $filefold = "QEall_set";
+#my $filefold = "QE_trimmed4relax";#for vc-relax
+my $filefold = "QEall_set";#for vc-md
 
 my $submitJobs = "no";
 my %sbatch_para = (

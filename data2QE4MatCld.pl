@@ -39,7 +39,8 @@ print ", you need to modify heredoc for setting the largest ecutrho and ecutwfc 
 print "\nMaybe you also need to modify cell_dofree setting for your QE cases. \n\n";
 ###parameters to set first
 my $currentPath = getcwd();
-my $dir = "$currentPath/data4relax";
+my $dir = "$currentPath/data4md_relaxed";
+#my $dir = "$currentPath/data4relax";
 #my @myelement =  ("B","N");#corresponding to lmp type ids
 my @datafile = `find $dir -maxdepth 1 -name "*.data"`;#|grep -v "/Te_"`;#find all data files
 map { s/^\s+|\s+$//g; } @datafile;
@@ -63,10 +64,10 @@ map { s/^\s+|\s+$//g; } @myelement;
 die "No elements were found\n" unless (@myelement);
 my @temperature = ("10");#temperatures for QE_MD, only template for the following sed trim
 my @pressure = ("0");#pressure for vc-md, only template for the following sed trim
-my $calculation = "vc-relax";#set temperature and pressure to be 0 0 for scf
+my $calculation = "vc-md";#set temperature and pressure to be 0 0 for scf
 
 
-my $stepsize = 20;#20 ~ 0.97 fs
+my $stepsize = 50;#20 ~ 0.97 fs
 my $nstep = 50;#how many steps for md for vc-relax
 my $pseudo_dir = "/opt/QEpot/SSSP_efficiency_pseudos/";
 ####end of setting parameters
