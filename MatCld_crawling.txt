@@ -1,14 +1,3 @@
 ###Crawling QE input from Materials Cloud for:
 
-1: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Pb32Te32.in -> 1/12
-2: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn3Pb29Te32.in -> 2/12
-3: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn6Pb26Te32.in -> 3/12
-4: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn9Pb23Te32.in -> 4/12
-5: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn12Pb20Te32.in -> 5/12
-6: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn15Pb17Te32.in -> 6/12
-7: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn18Pb14Te32.in -> 7/12
-8: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn21Pb11Te32.in -> 8/12
-9: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn24Pb8Te32.in -> 9/12
-10: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn27Pb5Te32.in -> 10/12
-11: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn30Pb2Te32.in -> 11/12
-12: /home/jsp/SnPbTe_alloys/make_B2_related_data/data2QE4MatCld/Sn32Te32.in -> 12/12
+1: /home/jsp/make_B2_related_data/data2QE4MatCld/1.2nm-CoCr0.5CuFeNi_NP.in -> 1/1
