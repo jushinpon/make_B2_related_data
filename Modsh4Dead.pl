@@ -11,7 +11,7 @@ my %sbatch_para = (
             nodes => 1,#how many nodes for your lmp job
             threads => 4,#modify it to 2, 4 if oom problem appears
             #cpus_per_task => 1,#useless if use "mpiexec -np"
-            partition => "MoreRAM",#which partition you want to use
+            partition => "C24M64",#which partition you want to use
             runPath => "/opt/thermoPW-7-2/bin/pw.x",          
             );
 

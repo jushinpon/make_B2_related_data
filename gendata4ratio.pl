@@ -14,19 +14,20 @@ my $currentPath = getcwd();
 `rm -rf $currentPath/ele4ratio`;
 `mkdir -p  $currentPath/ele4ratio`;
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-my @dlp_element = ("Sn", "Pb", "Te");
+my @dlp_element = ("Al", "Co","Cr","Fe","Ni");
 #my @sorted = sort @dlp_element;#for the same formula element order  
 my %setting = (
-    template_file => "rocksalt.data",
+    template_file => "BCC_432.data",
     dlp_element => [@dlp_element], 
-    subgrpNum => 2,
-    subgrp1_ele => ["Te"],
-    atom4subgrp1 => 32,#for L12, the atom number is different 
-    subgrp2_ele => ["Sn", "Pb"],
-    atom4subgrp2 => 32,
-    max_dataNo => 15 , #upper bound number of generated data files
-    starting_number => 0, #if 0 number of a element is required
-    deduct4max => 0 #The max atom number you want to set by deducting this number. 0 for the max
+    subgrpNum => 1,
+    subgrp1_ele => ["Al", "Cr","Co","Fe","Ni"],
+    atom4subgrp1 => 432,#for L12, the atom number is different 
+    # subgrp2_ele => [],
+    # atom4subgrp2 => 216,
+    max_dataNo => 500 , #upper bound number of generated data files
+    starting_number => 22, #if 0 number of a element is required
+    deduct4max => 286, #The max atom number you want to set by deducting this number. 0 for the max
+    last_element_max => 151 #The max atom number of the last element you can assign
 ); 
 
 my @ele4atomNo_set;#array ref for different element numbers of a subgroup
@@ -34,7 +35,7 @@ my $dataNuCount = 1000000;#super large value for while loop works first
 my $incr = 0;# increment to increase atom number of an element
 my $end_index = 0;
 while ($end_index == 0){
-    $incr++;
+    $incr+=5;
     my @template;#all possible atom number of an element, same for all subgrp
     my @subgrp_ratioset;#all ratio set for a subgrp
     #make template array for atom numbers of different subgrp
@@ -64,6 +65,7 @@ while ($end_index == 0){
                 if($sum < $setting{$grpname2num}){
                     my $lasteleNu = $setting{$grpname2num} - $sum;
                     chomp $lasteleNu;
+                    next if($lasteleNu > $setting{last_element_max} or $lasteleNu < $setting{starting_number});
                     my @temp = (@{$p},$lasteleNu);
                     push @{$subgrp_ratioset[$grp_1]},[@temp];
                 }
