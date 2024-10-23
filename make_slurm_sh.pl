@@ -25,7 +25,7 @@ my %sbatch_para = (
             #cpus_per_task => 1,
             #partition => "C16M32",#which partition you want to use
             partition => "All",#which partition you want to use
-            runPath => "/opt/thermoPW-7-2/bin/pw.x",          
+            runPath => "/opt/thermoPW-7-2_intel/bin/pw.x",          
             );
 
 my $currentPath = getcwd();# dir for all scripts
@@ -55,18 +55,20 @@ my $here_doc =<<"END_MESSAGE";
 #SBATCH --partition=$sbatch_para{partition}
 ##SBATCH --ntasks-per-node=12
 ##SBATCH --exclude=node23
-source /opt/intel/oneapi/setvars.sh
+#source /opt/intel/oneapi/setvars.sh
 rm -rf pwscf*
 node=$sbatch_para{nodes}
 threads=$sbatch_para{threads}
 processors=\$(nproc)
 np=\$((\$node*\$processors/\$threads))
-
 export OMP_NUM_THREADS=\$threads
 #the following two are for AMD CPU if slurm chooses for you!!
 export MKL_DEBUG_CPU_TYPE=5
 export MKL_CBWR=AUTO
-mpiexec -np \$np $sbatch_para{runPath} -in $basename.in
+export LD_LIBRARY_PATH=/opt/mpich-4.0.3/lib:/opt/intel/oneapi/mkl/latest/lib:\$LD_LIBRARY_PATH
+export PATH=/opt/mpich-4.0.3/bin:\$PATH
+
+/opt/mpich-4.0.3/bin/mpiexec -np \$np $sbatch_para{runPath} -in $basename.in
 rm -rf pwscf*
 perl /opt/qe_perl/QEout_analysis.pl
 perl /opt/qe_perl/QEout2data.pl
