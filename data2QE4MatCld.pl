@@ -39,7 +39,8 @@ print ", you need to modify heredoc for setting the largest ecutrho and ecutwfc 
 print "\nMaybe you also need to modify cell_dofree setting for your QE cases. \n\n";
 ###parameters to set first
 my $currentPath = getcwd();
-my $dir = "$currentPath/data4md_relaxed";
+my $dir = "$currentPath/cif2data";#data files
+#my $dir = "$currentPath/data4md_relaxed";
 #my $dir = "$currentPath/data4relax";
 #my @myelement =  ("B","N");#corresponding to lmp type ids
 my @datafile = `find $dir -maxdepth 1 -name "*.data"`;#|grep -v "/Te_"`;#find all data files
@@ -215,7 +216,11 @@ for my $id (@datafile){
                 push @{$para{coords}},$temp;
             }
 #1 1 1.000000 4.458517505863 1.201338326940 0.873835074284 with charge
-            elsif(/\d+\s+(\d+)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)$/ && $2 != ""){
+            #elsif(/\d+\s+(\d+)\s+([+-]?\d*\.*\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)\s+([+-]?\d*\.*\d*e?[+-]?\d*)$/ && $2 != ""){
+             elsif(/\d+\s+(\d+)\s+([+-]?\d*\.\d+)\s+([+-]?\d*\.\d*e?[+-]?\d*)\s+([+-]?\d*\.\d*e?[+-]?\d*)\s+([+-]?\d*\.\d*e?[+-]?\d*)$/){
+
+               # print "\$2:$2, $_\n";
+               # die;
                 my $ele = $ele[$1-1];
                 my $x = Math::BigFloat->new($3) - $para{xlo};
                 my $y = Math::BigFloat->new($4) - $para{ylo};

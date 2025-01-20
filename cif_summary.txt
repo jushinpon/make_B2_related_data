@@ -1,0 +1,4 @@
+***atom number of /home/jsp1/AlP/make_B2_related_data/cifs/Z_AlPNT.cif (current 20) <= 200 and > 4,no supercell is used.
+***atom number of /home/jsp1/AlP/make_B2_related_data/cifs/A_AlPNT.cif (current 12) <= 200 and > 4,no supercell is used.
+***atom number of /home/jsp1/AlP/make_B2_related_data/cifs/C_AlPNT.cif (current 196) <= 200 and > 4,no supercell is used.
+***atom number of /home/jsp1/AlP/make_B2_related_data/cifs/alp_2d.cif (current 4) <= 200 and > 4,no supercell is used.

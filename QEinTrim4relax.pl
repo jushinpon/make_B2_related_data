@@ -65,6 +65,19 @@ for my $qe (@QEin_MC){
     }
     #kpoint
     $QE_template[$kl + 1] = $kpoint;
+    #if ( $prefix =~ /AlPNT/){
+    #    my @temp = split(/\s+/,$kpoint);
+    #    $temp[0] = 1;
+    #    $temp[1] = 1;
+    #    my $temp = join(" ",@temp);
+    #    $QE_template[$kl + 1] = "$temp";
+    #}
+    #elsif( $prefix =~ /!AlPNT/){
+    #    my @temp = split(/\s+/,$kpoint);
+    #    $temp[3] = 1;
+    #    my $temp = join(" ",@temp);
+    #    $QE_template[$kl + 1] = "$temp";
+    #}       
     #mag
      for my $i (0 .. $ntype -1){
         my $temp = $start_mag[$i];

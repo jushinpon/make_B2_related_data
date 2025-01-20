@@ -1,3 +1,6 @@
 ###Crawling QE input from Materials Cloud for:
 
-1: /home/jsp/make_B2_related_data/data2QE4MatCld/1.2nm-CoCr0.5CuFeNi_NP.in -> 1/1
+1: /home/jsp1/AlP/make_B2_related_data/data2QE4MatCld/A_AlPNT.in -> 1/4
+2: /home/jsp1/AlP/make_B2_related_data/data2QE4MatCld/Z_AlPNT.in -> 2/4
+3: /home/jsp1/AlP/make_B2_related_data/data2QE4MatCld/alp_2d.in -> 3/4
+4: /home/jsp1/AlP/make_B2_related_data/data2QE4MatCld/C_AlPNT.in -> 4/4

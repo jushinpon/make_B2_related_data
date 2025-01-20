@@ -3,7 +3,8 @@ use strict;
 use Cwd;
 
 my $currentPath = getcwd();
-my $QE_folder = "QE_trimmed4md";#folder where you place all your QE input files
+my $QE_folder = "QE_trimmed4relax";#folder where you place all your QE input files
+#my $QE_folder = "QE_trimmed4md";#folder where you place all your QE input files
 my $out_folder = "QEall_set";#folder having all subfolders (the same prefixes as QE input file) with the QE input
 `rm -rf $currentPath/$out_folder`;
 `mkdir $currentPath/$out_folder`;
@@ -11,9 +12,12 @@ my $out_folder = "QEall_set";#folder having all subfolders (the same prefixes as
 my @tempw = (300);
 my @press = (0);
 my %para =(#you may set QE parameters you want to modify here. Keys should be the same as used in QE
-    calculation => '"vc-md"',
-    cell_dofree => '"all"',
+    calculation => '"vc-relax"',
+    #calculation => '"vc-md"',
+    cell_dofree => '"z"',
+    #cell_dofree => '"all"',
     cell_dynamics => '"pr"',
+    #cell_dynamics => '"bfgs"', #for vc-relax
     #vdw_corr => '"DFT-D3"', #use Van der Waals
     dt => 50,
     nstep => 100,

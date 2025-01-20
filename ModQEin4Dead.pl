@@ -15,34 +15,34 @@ use strict;
 use Cwd;
 
 #vc-relax: for cases with guessing equilibrium structure
-my $cell_dynamics = '"damp-pr"';
-my $ion_dynamics = '"damp"';
+#my $cell_dynamics = '"damp-pr"';
+#my $ion_dynamics = '"damp"';
 #vc-relax: for cases downloaed from materials project
-#my $cell_dynamics = '"bfgs"';
-#my $ion_dynamics = '"bfgs"';
+my $cell_dynamics = '"bfgs"';
+my $ion_dynamics = '"bfgs"';
 
 my $currentPath = getcwd();
 
 my %para =(#you may set QE parameters you want to modify here. Keys should be the same as used in QE
     #calculation => '"vc-md"',
-    cell_dofree => '"all"',
+    cell_dofree => '"z"',
     cell_dynamics => $cell_dynamics,#
     ion_dynamics => $ion_dynamics,#
     #vdw_corr => '"DFT-D3"', #use Van der Waals
-    dt => 50,
-    nstep => 50,
-    etot_conv_thr => "1.0d-5",#perl not know d-5, make it a string 
-    forc_conv_thr => "1.0d-4",
-    disk_io => '"/dev/null"',
-    degauss =>   0.035,
-    smearing => '"gaussian"',
-    conv_thr =>   "2.d-6",
-    mixing_beta =>   0.2,
-    mixing_mode => '"plain"',# !'local-TF'
-    mixing_ndim => 8,# !set 4 or 3 if OOM-killer exists (out of memory), default 8
-    diagonalization => '"david"',#!set cg if if OOM-killer exists (out of memory). other types can be used for scf problem.
-    diago_david_ndim => 2,#default
-    electron_maxstep => 300
+    #dt => 50,
+    #nstep => 50,
+    #etot_conv_thr => "1.0d-5",#perl not know d-5, make it a string 
+    #forc_conv_thr => "1.0d-4",
+    #disk_io => '"/dev/null"',
+    #degauss =>   0.035,
+    #smearing => '"gaussian"',
+    #conv_thr =>   "2.d-6",
+    #mixing_beta =>   0.2,
+    #mixing_mode => '"plain"',# !'local-TF'
+    #mixing_ndim => 8,# !set 4 or 3 if OOM-killer exists (out of memory), default 8
+    #diagonalization => '"david"',#!set cg if if OOM-killer exists (out of memory). other types can be used for scf problem.
+    #diago_david_ndim => 2,#default
+    #electron_maxstep => 300
 );
 
 my @keys = keys %para;#get all keys 
