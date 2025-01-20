@@ -72,7 +72,6 @@ for my $f (@all_QEin){
 
     if (-e "$dir/$sout"){#sout exists
         my @mark = `grep '!    total energy' $dir/$sout`;
-        my @jobdone = `grep 'JOB DONE' $dir/$sout`;
         map { s/^\s+|\s+$//g; } @mark;
         #scf cases
         if($calculation=~m/scf/ and @mark ==1){
@@ -113,49 +112,11 @@ for my $f (@all_QEin){
         }
 
         #md cases
-        if($calculation=~m/md/ and @mark == $nstep){
+        if($calculation=~m/(md|relax)/ and @mark == $nstep){
             $doneNu++;
             print $FH "$f\n";
         }
-        elsif($calculation=~m/md/ and @mark < $nstep){
-            #squeue -o "%A %j %u %N %T %M"
-            #398520 jobLi7Al6_mp-1212183-T300-P0 shaohan  PENDING 0:00
-            #398523 jobS_mp-77-T50-P0 shaohan node[10,18] RUNNING 1-04:52:12
-            my @submitted = `squeue -u $whoami -o "%A %j %u %N %T %M"|awk '{print  \$2}'`;#jobnames
-            my @submitted1 = `squeue -u $whoami -o "%A %j %u %N %T %M"|awk '{print  \$1}'`;#jobid
-            map { s/^\s+|\s+$//g; } @submitted;
-            map { s/^\s+|\s+$//g; } @submitted1;
-            my %jobname2id;
-            @jobname2id{@submitted} = @submitted1;
-
-            if($jobname ~~ @submitted){#running
-                my $elapsed = `squeue|grep $jobname2id{$jobname}`;
-                #if($elapsed){
-                    $elapsed =~ s/^\s+|\s+$//g;                
-                    $runNu++;
-                    my $temp = @mark."/".$nstep;
-                    print $FH2 "**$elapsed\n $temp: in $f\n\n";
-                #}
-                #else{
-                #    $deadNu++;
-                #    my $temp = @mark."/".$nstep;
-                #    print $FH3 "$temp: $f !\n";#for awk    
-                #}
-            }
-            else{
-                $deadNu++;
-                my $temp = @mark."/".$nstep;
-                print $FH3 "$temp: $f !\n";#for awk
-            }
-        }
-
-        #relax cases
-
-        if($calculation=~m/relax/ and @jobdone){
-            $doneNu++;
-            print $FH "$f\n";
-        }
-        elsif($calculation=~m/relax/ and @jobdone == 0){
+        elsif($calculation=~m/(md|relax)/ and @mark < $nstep){
             #squeue -o "%A %j %u %N %T %M"
             #398520 jobLi7Al6_mp-1212183-T300-P0 shaohan  PENDING 0:00
             #398523 jobS_mp-77-T50-P0 shaohan node[10,18] RUNNING 1-04:52:12
